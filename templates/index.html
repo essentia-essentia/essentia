@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="600" >
+    <meta name="viewport" content="width=device-width">
+    <title>Essentia</title>
+    <style media="screen">
+
+      .future{
+        border:solid 1px green;
+      }
+
+      .past{
+        border:solid 1px red;
+      }
+
+      .current{
+        border:solid 1px blue;
+      }
+
+      #sessions_container{height:100%;overflow-x: auto;white-space: nowrap;scroll-behavior: smooth;}
+      .sessions_container_container{margin-top:2px; height:500px;}
+      #individual_session_content{margin:10px; width:400px; height:300px;}
+
+
+      @media (max-width: 480px) {
+        .sessions_container_container{margin-top:2px; height:50%;}
+        #sessions_container{height:450px;overflow-x: auto;white-space: nowrap;scroll-behavior: smooth;}
+        #individual_session_content{margin:10px; width:80%; height:250px;}
+        #individual_session_content h2{font-size:10px;}
+        h4{font-size: 16px;}
+
+        .adsence_container{margin-top:2px;}
+        .adsence{ width:40%;height:60px;}
+	    }
+
+    </style>
+  </head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P058BXP5GP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-P058BXP5GP');
+</script>
+  <body>
+    <center>
+      <div style='height:50px;'>
+        <h4>
+          <a style=" margin-left:30px;" href="#"><span>Events</span></a>
+          <a style=" margin-left:30px;" href="#"><span>Elearning</span></a>
+          <a style=" margin-left:30px;" href="/time_table"><span>Full time table</span></a>
+          <a style=" margin-left:30px;" href="/Controls"><span>Controls</span></a>
+        </h4>
+      </div>
+    </center>
+    <hr>
+
+    <center class="sessions_container_container">
+      <div id='sessions_container' class="">
+        {% for session in sessions %}
+          <div id='individual_session_content' class="{{ session['time_type'] }}">
+            <h2>{{ session['session_name'] }}</h2>
+            <span>{{ session['session_venue_type'] }}</span>
+            <h4>{{ session['session_start_time'] }} to {{ session['session_end_time'] }}</h4>
+            {% if session['session_venue_type']=='Online' %}
+              <a href="{{ session['session_venue'] }}">
+                <button>Open in zoom</button>
+              </a>
+            {% else %}
+              <h3>{{ session['session_venue'] }}</h3>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </center>
+
+    <hr>
+
+    <center class='adsence_container'>
+      <div class="adsence">
+
+        <p>Created and managed by the masses</p>
+        <a href="/logout"> <button type="button" name="button" style="background-color:red;">Logout</button> </a>
+        <p><i>To contribute your ideas and code kindly send your suggestions to school.essentia@gmail.com </i> </p>
+        <p>Have a github account? Kindly send your email to school.essentia@gmail.com to be added as a code contributor</p>
+      </div>
+    </center>
+
+  </body>
+
+  <script type="text/javascript">
+    window.onload = function () {
+      if(document.getElementsByClassName('current')[0]!==null){
+        document.getElementsByClassName('current')[0].scrollIntoView()
+      }
+    }
+  </script>
+</html>

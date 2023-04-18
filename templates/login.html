@@ -1,0 +1,57 @@
+<html>
+<head>
+	<meta name="viewport" content="width=device-width">
+	<style media="screen">
+	#online_users {
+		margin-top: 100px;
+	}
+
+	.group_style{margin-bottom:30px; width:250px;}
+
+
+	@media (max-width: 480px) {
+		#online_users {
+			margin-top: 130px;
+		}
+	}
+
+	</style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P058BXP5GP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-P058BXP5GP');
+</script>
+	<body>
+	<center>
+		<div id='online_users'>
+		<form action='/Login_processing' method='POST'>
+			<select class="group_style" name="group">
+				<option value="BICS2B">Computer science 2nd yr</option>
+				<option value="BBIT3C">BBIT 3rd yr</option>
+			</select>
+			<br>
+			<button type='submit' onclick='Login()' style='margin-bottom:30px; width:250px;'>Login</button>
+
+		</form>
+		</div>
+	</center>
+	</body>
+
+	<script>
+
+		function Login(){
+			window.location.href='index.hmtl'
+		}
+
+		function Register(){
+			window.location.href='register'
+		}
+
+
+	</script>
+</html>

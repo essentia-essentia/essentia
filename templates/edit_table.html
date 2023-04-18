@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="600" >
+    <meta name="viewport" content="width=device-width">
+    <title>Essentia(Timetable)</title>
+    <style media="screen">
+
+      .future{
+        border:solid 1px green;
+      }
+
+      .past{
+        border:solid 1px red;
+      }
+
+      .current{
+        border:solid 1px blue;
+      }
+
+      #sessions_container{height:100%;overflow-x: auto;white-space: nowrap;scroll-behavior: smooth;}
+      .sessions_container_container{margin-top:2px; height:500px;}
+      #individual_session_content{margin:10px; width:400px; height:300px;}
+
+
+      @media (max-width: 480px) {
+        .sessions_container_container{margin-top:2px; height:50%;}
+        #sessions_container{height:450px;overflow-x: auto;white-space: nowrap;scroll-behavior: smooth;}
+        #individual_session_content{margin:10px; width:80%; height:250px;}
+        #individual_session_content h2{font-size:10px;}
+        h4{font-size: 16px;}
+
+        .adsence_container{margin-top:2px;}
+        .adsence{ width:40%;height:60px;}
+	    }
+
+    </style>
+  </head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P058BXP5GP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-P058BXP5GP');
+</script>
+  <body>
+    <center>
+      <div style='height:50px;'>
+        <h4>
+          <a style=" margin-left:30px;" href="#"><span>Events</span></a>
+          <a style=" margin-left:30px;" href="#"><span>Elearning</span></a>
+          <a style=" margin-left:30px;" href="/time_table"><span>Full time table</span></a>
+          <a style=" margin-left:30px;" href="/time_table"><span>Controls</span></a>
+        </h4>
+      </div>
+    </center>
+    <hr>
+
+    <center class="sessions_container_container">
+      <div id='sessions_container' class="">
+        <table>
+          <thead>
+            <th>Day</th>
+            <th>Lesson</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Venue Type</th>
+            <th>Venue</th>
+          </thead>
+          <tbody>
+            {% for session in data %}
+            <tr>
+              <form class="" action="/update_session" method="post">
+                <td>
+                  <select class="" name="session_day">
+                    <option value="{{ session['session_day'] }}">{{ session['day'] }}</option>
+                    <option value="1">Monday</option>
+                    <option value="2">Teusday</option>
+                    <option value="3">Wednesday</option>
+                    <option value="4">Thursday</option>
+                    <option value="5">Friday</option>
+                  </select>
+                </td>
+
+                <td>
+                  <input type="text" name="session_name" value="{{ session['session_name'] }}">
+                </td>
+
+                <td>
+                  <input type="text" name="session_start_time" value="{{ session['session_start_time'] }}">
+                </td>
+
+                <td>
+                  <input type="text" name="session_end_time" value="{{ session['session_end_time'] }}">
+                </td>
+
+                <td>
+                  <select class="" name="session_venue_type">
+                    <option value="{{ session['session_venue_type'] }}">{{ session['session_venue_type'] }}</option>
+                    <option value="Pysical">Pysical</option>
+                    <option value="Online">Online</option>
+                  </select>
+                </td>
+
+                <td>
+                  <input name="session_venue" value="{{ session['session_venue'] }}">
+                </td>
+
+                <input style="display:none;" name="session_id" value="{{ session['unit_session_id'] }}">
+
+                <td> <button type='submit' name="button">Update</button> </td>
+              </form>
+              <form class="" action="/delete_session" method="post">
+                <input style="display:none;" name="session_id" value="{{ session['unit_session_id'] }}">
+                <td> <button type='submit' name="button">Delete</button> </td>
+              </form>
+            </tr>
+            {% endfor %}
+
+
+            <tr>
+              <form class="" action='/new_session' method="POST">
+                <td>
+                  <select class="" name="session_day">
+                    <option value="1">Monday</option>
+                    <option value="2">Teusday</option>
+                    <option value="3">Wednesday</option>
+                    <option value="4">Thursday</option>
+                    <option value="5">Friday</option>
+                  </select>
+                </td>
+
+                <td>
+                  <input type="text" name="session_name" value="">
+                </td>
+
+                <td>
+                  <input type="text" name="session_start_time" value="">
+                </td>
+
+                <td>
+                  <input type="text" name="session_end_time" value="">
+                </td>
+
+                <td>
+                  <select class="" name="session_venue_type">
+                    <option value="Pysical">Pysical</option>
+                    <option value="Online">Online</option>
+                  </select>
+                </td>
+
+                <td>
+                  <input type="text" name="session_venue" value="">
+                </td>
+
+                <input type="text" name="session_group" value="{{ session_group }}" style="display:none;">
+
+                <td> <button type='submit' name="button">Add</button> </td>
+              </form>
+            </tr>
+
+
+          </tbody>
+        </table>
+      </div>
+    </center>
+
+    <hr>
+
+    <center class='adsence_container'>
+      <div class="adsence">
+
+        <p>Created and managed by the masses</p>
+        <a href="/logout"> <button type="button" name="button" style="background-color:red;">Logout</button> </a>
+      </div>
+    </center>
+
+  </body>
+
+  <script type="text/javascript">
+    window.onload = function () {
+      if(document.getElementsByClassName('current')[0]!==null){
+        document.getElementsByClassName('current')[0].scrollIntoView()
+      }
+    }
+  </script>
+</html>
